@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地球社会共生学研究センター | 青山学院大学</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1a3a5c;
+            --primary-gold: #b8860b;
+            --accent-green: #2d5a3d;
+            --bg-cream: #faf8f5;
+            --bg-light: #f5f3f0;
+            --text-dark: #2c2c2c;
+            --text-muted: #5a5a5a;
+            --border-light: #e0dcd5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #2a4a6c 100%);
+            color: white;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-top {
+            background: rgba(0,0,0,0.2);
+            padding: 8px 0;
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .university-name {
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .header-main {
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .center-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .center-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            letter-spacing: 0.15em;
+        }
+
+        .gold-line {
+            width: 80px;
+            height: 3px;
+            background: var(--primary-gold);
+            margin: 25px auto 0;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 18px 35px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--primary-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            color: var(--primary-navy);
+            background: var(--bg-light);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--primary-navy);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 0;
+        }
+
+        /* Section Styles */
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.6rem;
+            color: var(--primary-navy);
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-gold);
+            display: inline-block;
+        }
+
+        /* About Section */
+        .about-content {
+            background: white;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* News Section */
+        .news-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .news-item {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            transition: background 0.3s ease;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item:hover {
+            background: var(--bg-light);
+        }
+
+        .news-date {
+            background: var(--primary-navy);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .news-badge {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+
+        /* Projects Section */
+        .year-section {
+            margin-bottom: 50px;
+        }
+
+        .year-header {
+            background: var(--primary-navy);
+            color: white;
+            padding: 15px 25px;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .year-header:hover {
+            background: #234a6c;
+        }
+
+        .year-header .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .year-header.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .project-list {
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .project-list.collapsed {
+            display: none;
+        }
+
+        .project-item {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .project-item:last-child {
+            border-bottom: none;
+        }
+
+        .project-item:hover {
+            background: var(--bg-light);
+            padding-left: 35px;
+        }
+
+        .project-title {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .project-item.has-link .project-title {
+            color: var(--accent-green);
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-color: transparent;
+            transition: text-decoration-color 0.3s ease;
+        }
+
+        .project-item.has-link:hover .project-title {
+            text-decoration-color: var(--accent-green);
+        }
+
+        .project-researcher {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .project-researcher::before {
+            content: '研究代表者：';
+            color: var(--text-muted);
+        }
+
+        .pdf-badge {
+            display: inline-block;
+            background: #c41e3a;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            margin-left: 10px;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+
+        /* Kiyo Section */
+        .kiyo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .kiyo-card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .kiyo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .kiyo-card h3 {
+            font-family: 'Noto Serif JP', serif;
+            color: var(--primary-navy);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .kiyo-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .kiyo-card a {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s ease;
+        }
+
+        .kiyo-card a:hover {
+            gap: 10px;
+        }
+
+        .kiyo-note {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        .kiyo-note h4 {
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-navy);
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-info p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 2;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 5px 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .center-title {
+                font-size: 1.6rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+
+            .kiyo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                padding: 30px;
+            }
+
+            .news-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <span class="university-name">青山学院大学 地球社会共生学部</span>
+                <span>Global Studies Collaboration Research Center</span>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <h1 class="center-title">地球社会共生学研究センター</h1>
+                <p class="center-subtitle">RESEARCH CENTER FOR GLOBAL STUDIES COLLABORATION</p>
+                <div class="gold-line"></div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#about" class="nav-link active" data-section="about">センター概要</a></li>
+                <li><a href="#news" class="nav-link" data-section="news">お知らせ</a></li>
+                <li><a href="#projects" class="nav-link" data-section="projects">研究プロジェクト</a></li>
+                <li><a href="#kiyo" class="nav-link" data-section="kiyo">学部紀要</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <!-- センター概要 -->
+            <section id="about" class="section active">
+                <h2 class="section-title">センター概要</h2>
+                <div class="about-content">
+                    <p>地球社会共生学研究センターは、2016年に青山学院大学地球社会共生学部の付置研究機関として設立されました。本センターは、グローバル化が進展する現代社会において、多様な文化・価値観を持つ人々が共に生きる「共生社会」の実現に向けた学術研究を推進しています。</p>
+                    <p>設立以来10年にわたり、学部所属教員による多彩な研究プロジェクトを支援し、フィールドスタディの教育方法、留学プログラムの効果測定、国際比較調査、平和研究、STEAM教育など、幅広い分野での研究活動を展開してまいりました。</p>
+                    <p>2025年度より、研究成果をより広く社会に発信するため、「地球社会共生学部研究」を創刊いたします。本センターは今後も、地球社会共生学の発展と、持続可能な共生社会の構築に貢献する研究拠点として活動を続けてまいります。</p>
+                </div>
+            </section>
+
+            <!-- お知らせ -->
+            <section id="news" class="section">
+                <h2 class="section-title">お知らせ</h2>
+                <div class="news-list">
+                    <div class="news-item">
+                        <span class="news-date">2025.04</span>
+                        <div>
+                            <span class="news-badge">重要</span>
+                            「地球社会共生学部研究」創刊号の論文投稿を募集しています。投稿をご希望の方は編集規定をご確認ください。
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">2025.04</span>
+                        <div>
+                            <span class="news-badge">新着</span>
+                            研究センターホームページを開設しました。
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">2025.04</span>
+                        <div>
+                            2025年度研究プロジェクト助成の採択課題を公開しました。
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 研究プロジェクト -->
+            <section id="projects" class="section">
+                <h2 class="section-title">研究プロジェクト一覧</h2>
+                
+                <!-- 2025年度 -->
+                <div class="year-section">
+                    <div class="year-header" onclick="toggleYear(this)">
+                        <span>2025年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list">
+                        <div class="project-item has-link">
+                            <div class="project-title">海外大学院進学までの卒業生指導成果及び経験集約のための調査研究（その6）<span class="pdf-badge">PDF</span></div>
+                            <div class="project-researcher">村上先生</div>
+                        </div>
+                        <div class="project-item has-link">
+                            <div class="project-title">【継続】STEAM教育教材を用いた教育効果に関する研究<span class="pdf-badge">PDF</span></div>
+                            <div class="project-researcher">林先生</div>
+                        </div>
+                        <div class="project-item has-link">
+                            <div class="project-title">地球社会共生学の経済学・経営学的アプローチ（地域課題編）<span class="pdf-badge">PDF</span></div>
+                            <div class="project-researcher">山下先生</div>
+                        </div>
+                        <div class="project-item has-link">
+                            <div class="project-title">外国人留学生の社会的統合と交流困難に関する実証的研究：JASSO調査の二次分析を中心に<span class="pdf-badge">PDF</span></div>
+                            <div class="project-researcher">塚田先生</div>
+                        </div>
+                        <div class="project-item has-link">
+                            <div class="project-title">「国際理解のためのJapan Studies Program教育に関する調査」（その２）<span class="pdf-badge">PDF</span></div>
+                            <div class="project-researcher">亀井先生</div>
+                        </div>
+                        <div class="project-item has-link">
+                            <div class="project-title">GSCの留学効果測定プロジェクト<span class="pdf-badge">PDF</span></div>
+                            <div class="project-researcher">小堀先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2024年度 -->
+                <div class="year-section">
+                    <div class="year-header" onclick="toggleYear(this)">
+                        <span>2024年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <div class="project-title">海外大学院進学までの卒業生指導成果及び経験集約のための調査研究（その5）</div>
+                            <div class="project-researcher">村上先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">STEAM教育教材を用いた教育効果に関する研究（継続）</div>
+                            <div class="project-researcher">林先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">地球社会共生学の経済学・経営学的アプローチ（継続）</div>
+                            <div class="project-researcher">山下先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">国際理解のためのJapan Studies Program教育に関する調査</div>
+                            <div class="project-researcher">亀井先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">学部留学システムの異文化学習効果に関するデータ分析と事業評価</div>
+                            <div class="project-researcher">小堀先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2023年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2023年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">海外大学院進学までの卒業生指導成果及び経験集約のための調査研究（その4）</div>
+                            <div class="project-researcher">村上先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">ＳＴＥＡＭ教育教材を用いた教育効果に関する研究（継続）</div>
+                            <div class="project-researcher">林先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">地球社会共生学の経済学・経営学的アプローチ（継続）</div>
+                            <div class="project-researcher">山下先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">地球社会共生学部の学生支援に向けたＡＩ技術の効果的な利用法</div>
+                            <div class="project-researcher">菊池先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">学部留学システムの異文化学習効果に関するデータ分析と事業評価</div>
+                            <div class="project-researcher">小堀先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2022年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2022年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">海外大学院進学までの卒業生指導成果及び経験集約のための調査研究（その3）</div>
+                            <div class="project-researcher">村上先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">ＳＴＥＡＭ教育教材を用いた教育効果に関する研究</div>
+                            <div class="project-researcher">林先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">地球社会共生学の経済学・経営学的アプローチ</div>
+                            <div class="project-researcher">山下先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">学部留学システムの異文化学習効果に関するデータ分析と事業評価</div>
+                            <div class="project-researcher">小堀先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">withコロナにおける、次世代オンデマンド型ワークショップの提案</div>
+                            <div class="project-researcher">古橋先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2021年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2021年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">海外大学院進学までの卒業生指導成果及び経験集約のための調査研究（その２）</div>
+                            <div class="project-researcher">村上先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">学部の留学システム・プログラムの学習効果に関するアンケート分析</div>
+                            <div class="project-researcher">小堀先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">「大学における地球社会共生学」研究</div>
+                            <div class="project-researcher">藤原先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">「変容しつつある国際社会における日本の平和協力の在り方」</div>
+                            <div class="project-researcher">熊谷先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">「地球社会共生学部向け、汎用性のあるオンライン教材開発の研究」</div>
+                            <div class="project-researcher">菊池先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2020年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2020年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">学部の留学システム・プログラムの学習効果に関するアンケート分析</div>
+                            <div class="project-researcher">小堀先生（橋本先生、平塚氏）</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">海外大学院進学までの卒業生指導成果及び経験集約のための調査研究</div>
+                            <div class="project-researcher">桑島先生（海外大学院進学支援室）</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">「地球社会共生学のためのシャーロム」に続く、「中世におけるペスト、グローバリズム、そして教会および大学の対応」研究</div>
+                            <div class="project-researcher">藤原先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2019年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2019年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">学部の留学システム・プログラムの学習効果に関するアンケート分析</div>
+                            <div class="project-researcher">小堀先生（平塚氏）</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">基礎演習Ⅰ初年度実施内容と課題の取りまとめ</div>
+                            <div class="project-researcher">齋藤先生（村上先生・岩田先生・菊池先生・高橋先生・小堀先生・桑島先生・山下先生・松永先生・咲川先生）</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">フィールドスタディー成果レポートのテキスト分析</div>
+                            <div class="project-researcher">林先生（橋本先生・小堀先生・齋藤先生）</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">「和解の神学」研究</div>
+                            <div class="project-researcher">藤原先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2018年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2018年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">カトリック平和理解の実践と精神性の研究：ベネディクト会修道院を中心として</div>
+                            <div class="project-researcher">藤原先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">「日本人の国民性調査」の二次分析にもとづく地球社会共生の方向の研究</div>
+                            <div class="project-researcher">真鍋先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">現代グローバル社会の動向と課題、現地報告</div>
+                            <div class="project-researcher">岩田先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">クライシスマッピングウェブ教材開発の研究</div>
+                            <div class="project-researcher">古橋先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">フィールドスタディーの教育方法とその課題継承</div>
+                            <div class="project-researcher">古橋先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">学部の留学システム・プログラムの学習効果に関するアンケート分析</div>
+                            <div class="project-researcher">小堀先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2017年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2017年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">カトリック平和理解の実践と精神性の研究：アッシジのフランチェスコを中心として</div>
+                            <div class="project-researcher">藤原先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">国際比較調査のデータ分析にもとづく地球社会共生の方向の探求</div>
+                            <div class="project-researcher">真鍋先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">地球社会共生学研究センターと関連の海外研究センター連携のための企画</div>
+                            <div class="project-researcher">岩田先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">地球社会共生学部(GSC)言語教育研究</div>
+                            <div class="project-researcher">菊池先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">破綻する感覚の美学ーー谷崎潤一郎「少年」論</div>
+                            <div class="project-researcher">ケズナジャット先生</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2016年度 -->
+                <div class="year-section">
+                    <div class="year-header collapsed" onclick="toggleYear(this)">
+                        <span>2016年度</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="project-list collapsed">
+                        <div class="project-item">
+                            <div class="project-title">フィールドスタディの教育方法とその課題</div>
+                            <div class="project-researcher">古橋先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">地球社会共生学部(GSC)英語教育研究</div>
+                            <div class="project-researcher">菊池先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">E.H.カーの世界秩序構構想の検証-複合危機から複合秩序へ</div>
+                            <div class="project-researcher">高橋先生</div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-title">国際比較調査のデータ分析にもとづく地球社会共生の方向の探求</div>
+                            <div class="project-researcher">真鍋先生</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 学部紀要 -->
+            <section id="kiyo" class="section">
+                <h2 class="section-title">地球社会共生学部研究</h2>
+                
+                <div class="kiyo-grid">
+                    <div class="kiyo-card">
+                        <h3>編集規定</h3>
+                        <p>「地球社会共生学部研究」への投稿をご検討の方は、編集規定をご確認ください。論文の種別、分量、投稿資格等について定めています。</p>
+                        <a href="#">編集規定を見る →</a>
+                    </div>
+                    <div class="kiyo-card">
+                        <h3>投稿案内</h3>
+                        <p>投稿方法、原稿の書式、提出先等の詳細については投稿案内をご参照ください。</p>
+                        <a href="#">投稿案内を見る →</a>
+                    </div>
+                    <div class="kiyo-card">
+                        <h3>掲載論文</h3>
+                        <p>「地球社会共生学部研究」に掲載された論文をご覧いただけます。</p>
+                        <a href="#">論文一覧を見る →</a>
+                    </div>
+                    <div class="kiyo-card">
+                        <h3>バックナンバー</h3>
+                        <p>過去に刊行された紀要のバックナンバーをご覧いただけます。</p>
+                        <a href="#">バックナンバー →</a>
+                    </div>
+                </div>
+
+                <div class="kiyo-note">
+                    <h4>【投稿募集中】創刊号 論文募集のお知らせ</h4>
+                    <p>「地球社会共生学部研究」創刊号の論文投稿を募集しています。投稿をご希望の方は、編集規定をご確認の上、編集委員会までお問い合わせください。</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>地球社会共生学研究センター</h3>
+                    <p>
+                        〒252-5258 神奈川県相模原市中央区淵野辺5-10-1<br>
+                        青山学院大学 相模原キャンパス<br>
+                        地球社会共生学部
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <h4>関連リンク</h4>
+                    <ul>
+                        <li><a href="#">青山学院大学</a></li>
+                        <li><a href="#">地球社会共生学部</a></li>
+                        <li><a href="#">青山学院大学図書館</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Research Center for Global Studies Collaboration, Aoyama Gakuin University. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active nav
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show section
+                const sectionId = this.getAttribute('data-section');
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Scroll to top of main
+                window.scrollTo({ top: document.querySelector('main').offsetTop - 60, behavior: 'smooth' });
+            });
+        });
+
+        // Toggle year sections
+        function toggleYear(header) {
+            header.classList.toggle('collapsed');
+            header.nextElementSibling.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>
